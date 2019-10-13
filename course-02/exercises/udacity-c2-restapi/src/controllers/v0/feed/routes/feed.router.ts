@@ -18,13 +18,51 @@ router.get('/', async (req: Request, res: Response) => {
 
 //@TODO
 //Add an endpoint to GET a specific resource by Primary Key
+router.get("/:id", async (req:Request, res: Response) =>{
+    let {id}= req.params;
+    if (isNaN(id)){
+        return res.status(400).send(`Numeric ID is required`);
+      }
+    
+    const items= await FeedItem.findByPk(id);
+    if (items === null){
+        return res.status(404).send(`This ID is not found`);
+      }
+    res.send(items);
+});
 
 // update a specific resource
 router.patch('/:id', 
     requireAuth, 
     async (req: Request, res: Response) => {
+        let{id}= req.params;
+        let{caption, url} =req.body;
+        if (isNaN(id)){
+            return res.status(400).send(`Numeric ID is required`);
+          }
+        
+        const item= await FeedItem.findByPk(id);
+        if (item === null){
+            return res.status(404).send(`This ID is not found`);
+          }
+        if (!caption) {
+            return res.status(400).send({ message: 'Caption is required or malformed' });
+        }
+    
+        // check Filename is valid
+        if (!url) {
+            return res.status(400).send({ message: 'File url is required' });
+        }
+        item.caption=caption;
+        item.url=url; 
+        item.save();
+        res.send(item);
+        
+
+        
+
         //@TODO try it yourself
-        res.send(500).send("not implemented")
+        //res.send(500).send("not implemented")
 });
 
 
