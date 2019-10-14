@@ -1,13 +1,13 @@
 export const config = {
   "dev": {
     "username": process.env.POSTGRESS_USERNAME,
-    "password": "conAPM35",
-    "database": "udagramdelgadodev",
-    "host": "udagramdelgadodev.chocxswmc6av.ca-central-1.rds.amazonaws.com",
+    "password": process.env.POSTGRESS_PASSWORD,
+    "database": process.env.POSTGRESS_DATABASE,
+    "host": process.env.POSTGRESS_HOST,
     "dialect": "postgres",
-    "aws_region": "ca-central-1",
-    "aws_profile": "udagram-delgado-dev",
-    "aws_media_bucket": "udagram-delgado-dev"
+    "aws_region": process.env.AWS_REGION,
+    "aws_profile": process.env.AWS_PROFILE,
+    "aws_media_bucket": process.env.AWS_MEDIA_BUCKET
   },
   "prod": {
     "username": "",
