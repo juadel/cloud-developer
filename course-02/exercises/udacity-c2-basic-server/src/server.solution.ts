@@ -104,7 +104,7 @@ import { Car, cars as cars_list } from './cars';
     const car = cars.filter((car) => car.id == id);
 
     // respond not found, if we do not have this id
-    if(car && car.length === 0) {
+    if(car && car.length == 0) {
       return res.status(404).send(`car is not found`);
     }
 
